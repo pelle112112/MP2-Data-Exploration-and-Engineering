@@ -139,3 +139,35 @@ plotCorrelationMatrix(redDF, title='Correlation Matrix of All Attributes (Red Wi
 
 # Method for white wine data
 plotCorrelationMatrix(whiteDF, title='Correlation Matrix of All Attributes (White Wine)')
+
+# Opg 10
+# Explore the feature 'Residual sugar'. Is there any Outlier
+# Remove that row on which it is found
+
+
+
+
+
+
+
+# Opg 11
+# Identify the attribute with the lowest correlation to the wine quality
+# Remove it
+
+
+
+
+# Opg 12
+# Transform the categorical data into numeric
+
+
+
+
+# Opg 13
+# Try to reduce the number of features of the aggregated data set by applying principal component analysis (PCA)
+# What is the optimal number of components?
+
+
+
+# Opg 14
+# Print out 10 random rows from the final dataset as a prove of concept
