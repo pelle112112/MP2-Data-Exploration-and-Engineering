@@ -212,6 +212,20 @@ def getFinalDataset(data, n_components):
 
 finalDF = getFinalDataset(mergedDF, 3)
 
+# Plotting the principal components in 3d with 3 graphs and different colors
+def plot3DPCA(data, title='3D PCA'):
+    fig = plt.figure(figsize=(15, 10))
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.scatter(data['PC1'], data['PC2'], data['PC3'], marker='o')
+    
+    ax.set_xlabel('Principal Component 1')
+    ax.set_ylabel('Principal Component 2')
+    ax.set_zlabel('Principal Component 3')
+    ax.set_title(title)
+    plt.show()
+
+plot3DPCA(finalDF, title='3D PCA of Red and White Wines')
 # Opg 14
 # Print out 10 random rows from the final dataset as a prove of concept
 def printRandomRows(data, n=10):
