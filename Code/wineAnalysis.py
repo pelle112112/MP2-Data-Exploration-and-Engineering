@@ -195,6 +195,10 @@ def applyPCA(data, title='PCA'):
     
 applyPCA(mergedDF, title='PCA of Red and White Wines')
 
+# We can see that the optimal number of components is 3
+# This means that 3 components can explain 50% of the variance in the dataset
+# We can use this information to reduce the number of features in the dataset
+
 # Now lets get the final dataset with the optimal number of components
 def getFinalDataset(data, n_components):
     features = data.select_dtypes(include=[np.number])
@@ -206,11 +210,7 @@ def getFinalDataset(data, n_components):
     finalDF = pd.DataFrame(data=principalComponents, columns=[f'PC{i + 1}' for i in range(n_components)])
     return finalDF
 
-finalDF = getFinalDataset(mergedDF, 9)
-# We can see that the optimal number of components is 9
-# This means that 9 components can explain 95% of the variance in the dataset
-# We can use this information to reduce the number of features in the dataset
-
+finalDF = getFinalDataset(mergedDF, 3)
 
 # Opg 14
 # Print out 10 random rows from the final dataset as a prove of concept
