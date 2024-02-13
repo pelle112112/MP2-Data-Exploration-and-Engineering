@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sb
 import xlrd
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
 
 # Function for loading in the files
 def loadWines():
@@ -166,8 +168,53 @@ plotCorrelationMatrix(whiteDF, title='Correlation Matrix of All Attributes (Whit
 # Opg 13
 # Try to reduce the number of features of the aggregated data set by applying principal component analysis (PCA)
 # What is the optimal number of components?
+def applyPCA(data, title='PCA'):
 
+    # Standardize the data to not have bias
+    features = data.select_dtypes(include=[np.number])
+    x = StandardScaler().fit_transform(features)
+
+    # PCA
+    pca = PCA()
+    principalComponents = pca.fit_transform(x)
+
+    # Plotting the explained variance ratio
+    plt.figure(figsize=(10, 8))
+    plt.plot(np.cumsum(pca.explained_variance_ratio_))
+    plt.xlabel('Number of Components')
+    plt.ylabel('Explained Variance')
+    plt.title('Explained Variance Ratio')
+    plt.show()
+
+    # Finding the optimal number of components (We use 50% as the threshold for the explained variance ratio, but we could def go higher)
+    for i, explainedVariance in enumerate(np.cumsum(pca.explained_variance_ratio_)):
+        if explainedVariance > 0.5:
+            print(f'The optimal number of components is {i + 1}')
+            break
+
+    
+applyPCA(mergedDF, title='PCA of Red and White Wines')
+
+# Now lets get the final dataset with the optimal number of components
+def getFinalDataset(data, n_components):
+    features = data.select_dtypes(include=[np.number])
+    x = StandardScaler().fit_transform(features)
+
+    pca = PCA(n_components=n_components)
+    principalComponents = pca.fit_transform(x)
+
+    finalDF = pd.DataFrame(data=principalComponents, columns=[f'PC{i + 1}' for i in range(n_components)])
+    return finalDF
+
+finalDF = getFinalDataset(mergedDF, 9)
+# We can see that the optimal number of components is 9
+# This means that 9 components can explain 95% of the variance in the dataset
+# We can use this information to reduce the number of features in the dataset
 
 
 # Opg 14
 # Print out 10 random rows from the final dataset as a prove of concept
+def printRandomRows(data, n=10):
+    print(data.sample(n))
+
+printRandomRows(finalDF, n=10)
