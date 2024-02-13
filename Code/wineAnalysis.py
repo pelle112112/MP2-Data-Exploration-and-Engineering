@@ -126,7 +126,7 @@ def plotCorrelationMatrix (data, title='Correlation Matrix'):
     correlationMatrix = numericData.corr()
 
     #plot the heatmap
-    plt.figure(figsize=(12,8))
+    plt.figure(figsize=(15,10))
     sb.heatmap(correlationMatrix, annot=True, cmap='coolwarm', fmt='2f', linewidths=.5)
     plt.title(title)
     plt.show()
