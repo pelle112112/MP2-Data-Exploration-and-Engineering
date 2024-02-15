@@ -144,22 +144,65 @@ plotCorrelationMatrix(whiteDF, title='Correlation Matrix of All Attributes (Whit
 # Explore the feature 'Residual sugar'. Is there any Outlier
 # Remove that row on which it is found
 
+def analyze_and_remove_outliers(data, feature='residual suger', title='Outlier Analysis'):
+    plt.figure(figsize=(15,10))
+    sb.boxplot(x=data[feature])
+    plt.title(f'Boxplot of {feature} - {title}')
+    plt.show()
 
+    Q1 = data[feature].quantile(0.25)
+    Q3 = data[feature].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
 
+    outliers = data[(data[feature] < lower_bound) | (data[feature] > upper_bound)]
+    print(f"Number of outliers: '{feature}': {len(outliers)}")
 
+    print("Descriptive Statistics before removing outliers:")
 
+    data_cleaned = data[(data[feature] >= lower_bound) & (data[feature] <= upper_bound)]
+
+    print("\nDescriptive Statistics after removing outliers:")
+    print(data_cleaned[feature].describe())
+
+    return data_cleaned
+
+cleanedDF = analyze_and_remove_outliers(mergedDF, feature='residual sugar', title='Residual sugar analysis')
 
 
 # Opg 11
 # Identify the attribute with the lowest correlation to the wine quality
 # Remove it
 
+# Select only the numeric columns for correlation computation
+numeric_data = mergedDF.select_dtypes(include=[np.number])
 
+# Calculate the correlation matrix for numeric data only
+correlation_matrix = numeric_data.corr()
 
+# Find the attribute with the lowest absolute correlation to 'quality'
+lowest_corr_to_quality = correlation_matrix['quality'].abs().idxmin()
+
+# Display the attribute with the lowest correlation to 'quality'
+print(f"The attribute with the lowest correlation to quality is: {lowest_corr_to_quality}")
+
+# Drop the attribute with the lowest correlation to 'quality'
+mergedDF_cleaned = mergedDF.drop(columns=[lowest_corr_to_quality])
+
+# Display the first few rows of the new dataframe to confirm the column is removed
+print(mergedDF_cleaned.head())
 
 # Opg 12
 # Transform the categorical data into numeric
 
+# Use pandas get_dummies to convert the 'type' column to a one-hot encoded format
+mergedDF_numeric = pd.get_dummies(mergedDF, columns=['type'], drop_first=True)
+
+# The drop_first=True option is used to avoid multicollinearity by dropping one of the new columns
+
+# Display the first few rows of the new dataframe to confirm the transformation
+print(mergedDF_numeric.head())
 
 
 
