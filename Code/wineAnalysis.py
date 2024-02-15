@@ -62,8 +62,6 @@ mergedData = describeMergedData(mergedDF)
 def analyzeNumericData(data, title='numeric data analysis'):
     numericData = data.select_dtypes(include=[np.number])
     descriptiveStatistics = numericData.describe()
-
-    plt.figure(figsize=(15, 10))
     numericData.hist(bins=20, figsize=(15, 10))
     plt.suptitle(f'Histogram of Numeric Features - {title}')
     plt.show()
