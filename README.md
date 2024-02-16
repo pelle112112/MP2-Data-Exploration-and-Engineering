@@ -68,7 +68,7 @@ Clearly white wine. Since there is no residual sugar for red wine beyond 3-4% bu
 
 
  ### opg 7 Which other questions might be of interest for the wine consumers or distributers? 
-   The acidity of the products, maybe in relation to how it relates to the quality. 
+   The acidity of the products, maybe in relation to how it relates to the quality.\ 
    Price would also be an interesting comparison - although it is not represented in this dataset. 
 
 
@@ -80,11 +80,52 @@ Bin with most amount of entries is 2.978 - 3.236 when using 5 bins
 Bin with most amount of entries is 3.107 - 3.236 when using 10 bins
 <img src="Data\Graphs\pH_bins_10.png">
 
-### opg 9
+### opg 9 Create a heat map or a correlation matrix of all data and investigate it. Can you tell which vine attribute has the biggest influence on the wine quality? Which has the lowest?  
 
-   the overall quality is depended mostly on the amount of alcohol, the correlation is under 0.50, so i would say there is no correlation. which might be the reason why it was difficult earlier to determend what the requirement for better quality wine would be. the 
-   attribute with the lowest correlation is pH with 0.01
-   When we seperate the types of wine, the result for them are as following:
+<img src="Data\Graphs\CorrelationMatrixOfAllAttributes.png">
 
-   Red: attribute with most correlation is - Alcohol with 0.47 and least is - Residual sugar with 0.01
-   White attribute with most correlation is - Alcohol with 0.43 and least is - free sulfur dioxide with 0.008
+The overall quality is depended mostly on the amount of alcohol, the correlation is under 0.50, so i would say there is no correlation. which might be the reason why it was difficult earlier to determend what the requirement for better quality wine would be. 
+The attribute with the lowest correlation is pH with 0.01
+
+### Do you get the same results when you analyze the red and white wine data sets separately? 
+
+<img src="Data\Graphs\CorrelationOfAllAttributesRedWine.png">
+<img src="Data\Graphs\CorrelationMatrixOfAllAttributesWhiteWine.png">
+   
+When we seperate the types of wine, the result for them are as following:\
+
+Red: attribute with most correlation is - Alcohol with 0.47 and least is - Residual sugar with 0.01\
+White attribute with most correlation is - Alcohol with 0.43 and least is - free sulfur dioxide with 0.008\
+All in all the correlation between quality and the other features are quite similar for the individual wines when compared to the full collection of wine in our dataset. 
+
+### 10 Explore the feature ‘residual sugar’. Is there any outlier (a value much different from the rest)? On which row is it found? Remove that row. 
+
+<img src="Data\Graphs\boxplot_finding_outliers.png">
+The boxplot shows that there is a collection of outliers, with some being relatively close to the center and 1 data entry being way off from the rest.\
+We decided to use the IQR method to identify outliers and removed all of them, but considering that only 1 entry is so far from the rest, it would have been reasonable to remove that entry alone, in order to not lose to much data. 
+
+### 11 Identify the attribute with the lowest correlation to the wine quality and remove it. 
+The feature with the lowest correlation to quality is pH value. As also shown on our heatmap from earlier tasks. 
+
+### 12 Transform the categorical data into numeric. 
+The only non numeric feature in our dataset is the type category. We used labelencoder to convert the values, with red being 0, and white being 1. 
+
+### 13 Try to reduce the number of features of the aggregated data set by applying principal component analysis (PCA). What is the optimal number of components? 
+
+<img src="Data\Graphs\explained_variance_PCA_components.png">
+
+We use the graph to determine how many components we require to represent 95% of our data. We can achieve that in our dataset using 9 components.\ 
+We conclude that after standardisation we can use the PCA method to reduce our dataset from 12 to 9 columns.  
+
+### 14 Print out ten random rows from the final dataset as a prove of concept.
+           PC1       PC2       PC3       PC4       PC5       PC6       PC7       PC8       PC9
+4401 -0.955836 -1.345626 -0.429852 -0.921674 -0.397175 -1.705118  0.324397  0.201081 -0.056695
+2406 -2.170322  1.903310 -0.760646  0.848182 -0.596678  0.210051  0.367429 -0.118659  0.046372
+1891 -1.691728  3.827941  0.016511  0.035288 -0.775266  0.183304  0.400989  0.850571  0.599073
+6431 -0.720332 -1.039373 -1.360439 -1.192416  0.814257 -0.321614  0.381251  0.260809 -0.192965
+3917 -1.461114  3.191910  0.396328 -1.364064  0.631433  0.593017 -0.386883  0.572460  0.207807
+3788 -1.059696  1.378547  0.257846  0.266660 -0.678386 -0.946984 -0.160922 -0.096449  0.340620
+2800 -0.869127 -1.739620  0.868542 -0.309757 -0.372652 -0.689456  0.126811 -0.833956 -0.280719
+2688 -1.154062 -1.123902  0.532419 -0.390238 -0.775522 -0.820636  0.438666 -0.686411 -0.437011
+4391 -1.563515  1.733064  0.029487 -0.322923  0.763058  0.295985 -0.355212  0.083431 -0.142061
+3867 -1.461872  1.038755 -0.574939 -0.351358 -0.223642 -0.942363  0.017488 -1.089523 -0.662107
