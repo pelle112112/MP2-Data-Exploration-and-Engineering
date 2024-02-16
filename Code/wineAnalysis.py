@@ -197,7 +197,7 @@ print(mergedDF_cleaned.head())
 # Transform the categorical data into numeric
 
 # Use pandas get_dummies to convert the 'type' column to a one-hot encoded format
-mergedDF_numeric = pd.get_dummies(mergedDF, columns=['type'], drop_first=True)
+mergedDF_numeric = pd.get_dummies(mergedDF_cleaned, columns=['type'], drop_first=True)
 
 # The drop_first=True option is used to avoid multicollinearity by dropping one of the new columns
 
