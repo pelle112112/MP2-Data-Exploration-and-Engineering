@@ -1,6 +1,6 @@
 # MP -2
 ## BI assignment
-## Made by Pelle, Danyal, Nikolai og Carsten
+## Made by Pelle, Danyal, Nicolai og Carsten
 
 ### opg 5
 
