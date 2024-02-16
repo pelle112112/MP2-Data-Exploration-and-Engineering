@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sb
 import xlrd
+from sklearn import preprocessing
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
@@ -196,13 +197,11 @@ print(mergedDF_cleaned.head())
 # Opg 12
 # Transform the categorical data into numeric
 
-# Use pandas get_dummies to convert the 'type' column to a one-hot encoded format
-mergedDF_numeric = pd.get_dummies(mergedDF_cleaned, columns=['type'], drop_first=True)
+labelEncoder = preprocessing.LabelEncoder()
+processedDataFrame = mergedDF_cleaned.copy()
+processedDataFrame['type'] = labelEncoder.fit_transform(mergedDF_cleaned['type'])
 
-# The drop_first=True option is used to avoid multicollinearity by dropping one of the new columns
-
-# Display the first few rows of the new dataframe to confirm the transformation
-print(mergedDF_numeric.head())
+print(processedDataFrame)
 
 
 
@@ -227,18 +226,18 @@ def applyPCA(data, title='PCA'):
     plt.title('Explained Variance Ratio')
     plt.show()
 
-    # Finding the optimal number of components (We use 50% as the threshold for the explained variance ratio, but we could def go higher)
+    # Finding the optimal number of components (We use 95% as the threshold for the explained variance ratio)
     for i, explainedVariance in enumerate(np.cumsum(pca.explained_variance_ratio_)):
-        if explainedVariance > 0.5:
+        if explainedVariance > 0.95:
             print(f'The optimal number of components is {i + 1}')
             break
 
     
-applyPCA(mergedDF, title='PCA of Red and White Wines')
+applyPCA(processedDataFrame, title='PCA of Red and White Wines')
 
-# We can see that the optimal number of components is 3
-# This means that 3 components can explain 50% of the variance in the dataset
-# We can use this information to reduce the number of features in the dataset
+# We can see that the optimal number of components is 9
+# 9 components can explain 95% of the data
+# We can use this information to reduce the number of features in the dataset from 12 to 9
 
 # Now lets get the final dataset with the optimal number of components
 def getFinalDataset(data, n_components):
@@ -251,22 +250,8 @@ def getFinalDataset(data, n_components):
     finalDF = pd.DataFrame(data=principalComponents, columns=[f'PC{i + 1}' for i in range(n_components)])
     return finalDF
 
-finalDF = getFinalDataset(mergedDF, 3)
+finalDF = getFinalDataset(processedDataFrame, 9)
 
-# Plotting the principal components in 3d with 3 graphs and different colors
-def plot3DPCA(data, title='3D PCA'):
-    fig = plt.figure(figsize=(15, 10))
-    ax = fig.add_subplot(111, projection='3d')
-
-    ax.scatter(data['PC1'], data['PC2'], data['PC3'], marker='o')
-    
-    ax.set_xlabel('Principal Component 1')
-    ax.set_ylabel('Principal Component 2')
-    ax.set_zlabel('Principal Component 3')
-    ax.set_title(title)
-    plt.show()
-
-plot3DPCA(finalDF, title='3D PCA of Red and White Wines')
 # Opg 14
 # Print out 10 random rows from the final dataset as a prove of concept
 def printRandomRows(data, n=10):
