@@ -68,8 +68,9 @@ def analyzeNumericData(data, title='numeric data analysis'):
     numericData.hist(bins=20, figsize=(15, 10))
     plt.suptitle(f'Histogram of Numeric Features - {title}')
     plt.show()
-
+    
     print(descriptiveStatistics)
+    print(descriptiveStatistics.var())
 
 # Method for the merged data
 analyzeNumericData(mergedDF, title='Red and White Wines')
@@ -97,22 +98,45 @@ def compareWines(red, white):
     plt.subplots_adjust(hspace=0.5)
     plt.show()
 
+def compareWinesAverage(dataFrame):
+    dataFrameComparison = dataFrame.drop([
+    'fixed acidity',
+    'volatile acidity',
+    'citric acid',
+    'chlorides',
+    'free sulfur dioxide',
+    'total sulfur dioxide',
+    'density',
+    'pH',
+    'sulphates'
+    ], axis=1)
+    dataFrameComparison.groupby(by='type').mean().plot(kind='bar')
+    plt.show()
+
 compareWines(redDF, whiteDF)
+compareWinesAverage(mergedDF)
 
 # OPG 8
 # Split aggregated data into 5 and 10 subsets and print out higest density
  
 def splitAggregated(mergedDF):
-    mergedDF['pHBins5'] = pd.cut(mergedDF['pH'], bins=5)
+    binsOf5 = pd.cut(mergedDF['pH'], bins=5)
 
     # Higest density
-    higestDensityOf5 = mergedDF['pHBins5'].value_counts().idxmax()
+    higestDensityOf5 = binsOf5.value_counts().idxmax()
 
+    binsOf5.value_counts().plot(kind='bar', figsize=(5, 5))
+    plt.tight_layout()
+    plt.show()
     print(f'The subset with the higest density (5 bins) is {higestDensityOf5}')
 
-    mergedDF['pHBins10'] = pd.cut(mergedDF['pH'], bins=10)
+    binsOf10 = pd.cut(mergedDF['pH'], bins=10)
 
-    higestDensityOf10 = mergedDF['pHBins10'].value_counts().idxmax()
+    higestDensityOf10 = binsOf10.value_counts().idxmax()
+
+    binsOf10.value_counts().plot(kind='bar', figsize=(5, 5))
+    plt.tight_layout()
+    plt.show()
     print(f'The subset with the higest density (10 bins) is {higestDensityOf10}')
 
 
@@ -129,6 +153,7 @@ def plotCorrelationMatrix (data, title='Correlation Matrix'):
     #plot the heatmap
     plt.figure(figsize=(15,10))
     sb.heatmap(correlationMatrix, annot=True, cmap='coolwarm', fmt='2f', linewidths=.5)
+    plt.tight_layout()
     plt.title(title)
     plt.show()
 
