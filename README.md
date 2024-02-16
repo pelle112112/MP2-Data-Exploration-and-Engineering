@@ -1,12 +1,12 @@
-### MP -2
+# MP -2
 ## BI assignment
-## Made by Pelle, Danyal, Nikolai og Carsten
+## Made by Pelle, Danyal, Nicolai og Carsten
 
-# opg 5
+### opg 5
 
 on some points, it is normally distributed. Like Quality, pH value and Alcohol (for red wine table). But not on values like Sulphates (for red wine), sulfur dioxide (also red wine), where, it shows that how many of the value in question is present in the stock of red and white wine. So from these Histogram. It shows that there is a major representation of medium quality wine for both red and white wine. Its hard to spot if all the other values create a better or poorer wine if you turn up or down on some of the ingredienses.
 
-# opg 6
+### opg 6
 
 a.  The first diagram shows how the generel quality of wine is in the sstock, in this case there is a big reprensentation of medium quality wine for both red and white
     The second diagram shows how the volume of alcohol is distributed among the wine in stock. for red wine most wine have a alcohol % between 9 and 10 and for white its mainly
@@ -25,14 +25,15 @@ d. Clearly white wine. Since there is no residual sugar for red wine beyond 3-4%
    20% 
 
 
-  # opg 7
+ ### opg 7
 
   ??? price maybe???
 
 
-  # opg 9
+### opg 9
 
-   the overall quality is depended mostly on the amount of alcohol, the correlation is under 0.50, so i would say there is no correlation. which might be the reason why it was difficult earlier to determend what the requirement for better quality wine would be. the attribute with the lowest correlation is pH with 0.01
+   the overall quality is depended mostly on the amount of alcohol, the correlation is under 0.50, so i would say there is no correlation. which might be the reason why it was difficult earlier to determend what the requirement for better quality wine would be. the 
+   attribute with the lowest correlation is pH with 0.01
    When we seperate the types of wine, the result for them are as following:
 
    Red: attribute with most correlation is - Alcohol with 0.47 and least is - Residual sugar with 0.01
