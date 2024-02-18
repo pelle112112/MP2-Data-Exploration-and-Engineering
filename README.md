@@ -1,4 +1,4 @@
-# MP -2
+# MP-2
 
 ## BI assignment
 
