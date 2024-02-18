@@ -101,15 +101,31 @@ All in all the correlation between quality and the other features are quite simi
 <img src="Data\Graphs\boxplot_finding_outliers.png">
 The boxplot shows that there is a collection of outliers, with some being relatively close to the center and 1 data entry being way off from the rest.\
 We decided to use the IQR method to identify outliers and removed all of them, but considering that only 1 entry is so far from the rest, it would have been reasonable to remove that entry alone, in order to not lose to much data.
+The analysis utilizing a boxplot identified a total of 118 outliers in the 'residual sugar' attribute. 
+These outliers were determined based on the Interquartile Range (IQR) method. 
+The decision to remove these outliers is supported by the significant deviation of some values from the central tendency, 
+notably one entry far exceeding the others. After outlier removal, the dataset was reduced to 6379 entries, 
+with 'residual sugar' ranging from 0.6 to 17.5, tightening the dataset's focus and potentially improving the quality of subsequent analyses.
+
 
 ### 11 Identify the attribute with the lowest correlation to the wine quality and remove it.
 
 The feature with the lowest correlation to quality is pH value. As also shown on our heatmap from earlier tasks.
+The attribute with the lowest correlation to wine quality, as identified through correlation analysis, 
+was pH, demonstrating minimal impact on wine quality. 
+The terminal output confirms the removal of this attribute from the dataset, 
+streamlining the analysis towards more influential factors on wine quality. 
+This step aligns with data preprocessing goals of eliminating features that provide little to no predictive value for the outcome of interest.
 
 ### 12 Transform the categorical data into numeric.
 
 The only non numeric feature in our dataset is the type category. We used labelencoder to convert the values, with red being 0, and white being 1.
 
+The transformation process involved converting the 'type' attribute from categorical (red, white) to numeric form, 
+assigning 0 to red and 1 to white wines. This conversion, 
+facilitated by the LabelEncoder, is essential for the application of many machine learning algorithms that require numerical input. 
+This step ensures that the type of wine is retained as a meaningful feature within the dataset, 
+now in a format conducive to statistical analysis and modeling.
 ### 13 Try to reduce the number of features of the aggregated data set by applying principal component analysis (PCA). What is the optimal number of components?
 
 <img src="Data\Graphs\explained_variance_PCA_components.png">
